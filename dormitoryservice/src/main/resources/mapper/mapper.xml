@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhb.dormitoryservice.dao.UserMapper">
+
+    <!-- 查询宿舍信息 -->
+    <select id="dormfindAll" resultType="com.zhb.dormitoryservice.pojo.Dorm">
+ 		SELECT id,D_id,total,used,dormadmin from zhb_dormitory.t_b_dorm
+ 	</select>
+
+    <!-- 查询损耗物品信息 -->
+    <select id="damfindAll" resultType="com.zhb.dormitoryservice.pojo.Damagething">
+ 		SELECT Da_id,damagestation,damagetime,isfixed,dormid from zhb_dormitory.t_b_damage
+ 	</select>
+
+    <!-- 查询分数信息 -->
+    <select id="scofindAll" resultType="com.zhb.dormitoryservice.pojo.Score">
+ 		SELECT id,score,dormid from zhb_dormitory.t_b_score
+ 	</select>
+
+    <!-- 查询访客信息 -->
+    <select id="visfindAll" resultType="com.zhb.dormitoryservice.pojo.Visitors">
+ 		SELECT id,visitorname,studentid,starttime,endtime,day from zhb_dormitory.t_b_visitor
+ 	</select>
+
+    <!-- 查询学生信息 -->
+    <select id="studentfindAll" resultType="com.zhb.dormitoryservice.pojo.Student">
+ 		SELECT S_id,S_name,sex,birthday,qq,mobile,dormid from zhb_dormitory.t_b_student
+ 	</select>
+
+    <!-- 查询管理员信息 -->
+    <select id="adminfindAll" resultType="com.zhb.dormitoryservice.pojo.User">
+ 		SELECT id,userName,age,sex,phone,email from zhb_dormitory.t_b_user
+ 	</select>
+
+    <!-- 查询用户信息 -->
+    <select id="getUserByName" parameterType="String" resultType="com.zhb.dormitoryservice.pojo.User">
+ 		SELECT * from zhb_dormitory.t_b_user where userName=#{username}
+ 	</select>
+
+    <!-- 添加宿舍信息 -->
+    <insert id="dormsave" parameterType="com.zhb.dormitoryservice.pojo.Dorm">
+ 		INSERT INTO zhb_dormitory.t_b_dorm (D_id,total,used,dormadmin)
+ 		values (#{D_id},#{total},#{used},#{dormadmin})
+ 	</insert>
+
+    <!-- 添加用户信息 -->
+    <insert id="createUser" parameterType="com.zhb.dormitoryservice.pojo.User">
+ 		INSERT INTO zhb_dormitory.t_b_user (id,userName,password,age,sex,phone,email,permission)
+ 		values (#{id},#{userName},#{password},#{age},#{sex},#{phone},#{email},#{permission})
+ 	</insert>
+
+    <!-- 添加损耗物品信息 -->
+    <insert id="damsave" parameterType="com.zhb.dormitoryservice.pojo.Damagething">
+ 		INSERT INTO zhb_dormitory.t_b_damage (damagestation,damagetime,isfixed,dormid)
+ 		values (#{damagestation},#{damagetime},#{isfixed},#{dormid})
+ 	</insert>
+
+    <!-- 添加分数信息 -->
+    <insert id="scosave" parameterType="com.zhb.dormitoryservice.pojo.Score">
+ 		INSERT INTO zhb_dormitory.t_b_score (score,dormid)
+ 		values (#{score},#{dormid})
+ 	</insert>
+
+    <!-- 添加访客信息 -->
+    <insert id="vissave" parameterType="com.zhb.dormitoryservice.pojo.Visitors">
+ 		INSERT INTO zhb_dormitory.t_b_visitor (visitorname,studentid,starttime,endtime,day)
+ 		values (#{visitorname},#{studentid},#{starttime},#{endtime},#{day})
+ 	</insert>
+
+    <!-- 添加学生信息 -->
+    <insert id="stusave" parameterType="com.zhb.dormitoryservice.pojo.Student">
+ 		INSERT INTO zhb_dormitory.t_b_student (S_id,S_name,sex,birthday,qq,mobile,dormid)
+ 		values (#{S_id},#{S_name},#{sex},#{birthday},#{qq},#{mobile},#{dormid})
+ 	</insert>
+
+
+    <!-- 根据id查询宿舍对象 -->
+    <select id="findById" parameterType="int" resultType="com.zhb.dormitoryservice.pojo.Dorm">
+ 		SELECT 	id,D_id,total,used,dormadmin from zhb_dormitory.t_b_dorm where id = #{value}
+ 	</select>
+
+    <!-- 根据id查询损耗物对象 -->
+    <select id="damfindById" parameterType="int" resultType="com.zhb.dormitoryservice.pojo.Damagething">
+ 		SELECT 	Da_id,damagestation,damagetime,isfixed,dormid from zhb_dormitory.t_b_damage where Da_id = #{value}
+ 	</select>
+
+    <!-- 根据id查询分数对象 -->
+    <select id="scofindById" parameterType="int" resultType="com.zhb.dormitoryservice.pojo.Score">
+ 		SELECT id,score,dormid from zhb_dormitory.t_b_score where id = #{value}
+ 	</select>
+
+    <!-- 根据id查询访客对象 -->
+    <select id="visfindById" parameterType="int" resultType="com.zhb.dormitoryservice.pojo.Visitors">
+ 		SELECT id,visitorname,studentid,starttime,endtime from zhb_dormitory.t_b_visitor where id = #{value}
+ 	</select>
+
+    <!-- 更新宿舍数据 -->
+    <update id="dormupdate" parameterType="com.zhb.dormitoryservice.pojo.Dorm">
+ 		update zhb_dormitory.t_b_dorm set id=#{id},D_id=#{D_id},total=#{total},used=#{used},dormadmin=#{dormadmin}
+ 		where id = #{id}
+ 	</update>
+
+    <!-- 更新损耗物品数据 -->
+    <update id="damupdate" parameterType="com.zhb.dormitoryservice.pojo.Damagething">
+ 		update zhb_dormitory.t_b_damage set Da_id=#{Da_id},damagestation=#{damagestation},damagetime=#{damagetime},isfixed=#{isfixed},dormid=#{dormid}
+ 		where Da_id = #{Da_id}
+ 	</update>
+
+    <!-- 更新分数数据 -->
+    <update id="scoupdate" parameterType="com.zhb.dormitoryservice.pojo.Score">
+ 		update zhb_dormitory.t_b_score set id=#{id},score=#{score},dormid=#{dormid}
+ 		where id = #{id}
+ 	</update>
+
+    <!-- 更新访客数据 -->
+    <update id="visupdate" parameterType="com.zhb.dormitoryservice.pojo.Visitors">
+ 		update zhb_dormitory.t_b_visitor set visitorname=#{visitorname},studentid=#{studentid},starttime=#{starttime},endtime=#{endtime},day=#{day}
+ 		where id = #{id}
+ 	</update>
+
+    <!-- 更新学生数据 -->
+    <update id="stuupdate" parameterType="com.zhb.dormitoryservice.pojo.Student">
+ 		update zhb_dormitory.t_b_student set S_id=#{S_id},S_name=#{S_name},sex=#{sex},birthday=#{birthday},qq=#{qq},mobile=#{mobile},dormid=#{dormid}
+ 		where S_id=#{S_id}
+ 	</update>
+
+    <!-- 删除宿舍数据 -->
+    <delete id="delete" parameterType="Integer[]">
+        delete from zhb_dormitory.t_b_dorm
+        <where>
+            id
+            <foreach collection="array" item="id" open="in(" close=")" separator=",">
+                #{id}
+            </foreach>
+        </where>
+    </delete>
+
+    <!-- 删除损耗物数据 -->
+    <delete id="damdelete" parameterType="Integer[]">
+        delete from zhb_dormitory.t_b_damage
+        <where>
+            Da_id
+            <foreach collection="array" item="Da_id" open="in(" close=")" separator=",">
+                #{Da_id}
+            </foreach>
+        </where>
+    </delete>
+
+    <!-- 删除评分数据 -->
+    <delete id="scodelete" parameterType="Integer[]">
+        delete from zhb_dormitory.t_b_score
+        <where>
+            id
+            <foreach collection="array" item="id" open="in(" close=")" separator=",">
+                #{id}
+            </foreach>
+        </where>
+    </delete>
+
+    <!-- 删除访客数据 -->
+    <delete id="visdelete" parameterType="Integer[]">
+        delete from zhb_dormitory.t_b_visitor
+        <where>
+            id
+            <foreach collection="array" item="id" open="in(" close=")" separator=",">
+                #{id}
+            </foreach>
+        </where>
+    </delete>
+
+    <!-- 删除评分数据 -->
+    <delete id="studelete" parameterType="Integer[]">
+        delete from zhb_dormitory.t_b_student
+        <where>
+            S_id
+            <foreach collection="array" item="id" open="in(" close=")" separator=",">
+                #{id}
+            </foreach>
+        </where>
+    </delete>
+
+    <!-- 登录验证 -->
+    <select id="checkuser" resultType="com.zhb.dormitoryservice.pojo.User">
+ 		SELECT * from zhb_dormitory.t_b_user where userName = #{username} and password = #{password}
+ 	</select>
+
+    <!-- 查询宿管信息 -->
+    <select id="userfindAll" resultType="com.zhb.dormitoryservice.pojo.User">
+ 		SELECT 	id,userName,age,sex,u_id from zhb_dormitory.t_b_user
+ 	</select>
+
+    <!-- 添加宿管信息 -->
+    <insert id="usersave" parameterType="com.zhb.dormitoryservice.pojo.User">
+ 		INSERT INTO zhb_dormitory.t_b_user (id,userName,password,age,sex)
+ 		values (#{id},#{userName},#{password},#{age},#{sex})
+ 	</insert>
+
+    <!-- 根据id查询对象 -->
+    <select id="userfindById" parameterType="int" resultType="com.zhb.dormitoryservice.pojo.User">
+ 		SELECT 	u_id,id,userName,age,sex,password from zhb_dormitory.t_b_user where u_id = #{value}
+ 	</select>
+
+    <!-- 更新宿舍数据 -->
+    <update id="userupdate" parameterType="com.zhb.dormitoryservice.pojo.User">
+ 		update zhb_dormitory.t_b_user set id=#{id},userName=#{userName},password=#{password},age=#{age},sex=#{sex}
+ 		where u_id = #{u_id}
+ 	</update>
+
+    <!-- 删除宿舍数据 -->
+    <delete id="userdelete" parameterType="Integer[]">
+        delete from zhb_dormitory.t_b_user
+        <where>
+            u_id
+            <foreach collection="array" item="u_id" open="in(" close=")" separator=",">
+                #{u_id}
+            </foreach>
+        </where>
+    </delete>
+
+
+    <!--得到用户数-->
+    <select id="getUserCount" resultType="com.zhb.dormitoryservice.pojo.User">
+        SELECT count(id)as total,count(case when(sex="男") then 1 else null end)as man ,count(case when(sex="女") then 1 else null end) as woman from zhb_dormitory.t_b_user
+    </select>
+
+    <!--得到损耗物品数-->
+    <select id="getDamCount" resultType="com.zhb.dormitoryservice.pojo.Damagething">
+        SELECT count(Da_id)as damagenumber,count(case when(isfixed="是") then 1 else null end)as fixed ,count(case when(isfixed="否") then 1 else null end) as nofixed from zhb_dormitory.t_b_damage
+    </select>
+
+    <!--得到访客访问天数-->
+    <select id="getVisCount" resultType="com.zhb.dormitoryservice.pojo.Day">
+        SELECT count(case when(day="Mon") then 1 else null end)as Mon ,
+        count(case when(day="Tue") then 1 else null end)as Tue,
+        count(case when(day="Wed") then 1 else null end)as Wed,
+        count(case when(day="Thu") then 1 else null end)as Thu,
+        count(case when(day="Fri") then 1 else null end)as Fri,
+        count(case when(day="Sat") then 1 else null end)as Sat,
+        count(case when(day="Sun") then 1 else null end)as Sun from zhb_dormitory.t_b_visitor
+    </select>
+
+    <!--模糊查询学生信息-->
+    <select id="studentfindkeyAll" parameterType="String" resultType="com.zhb.dormitoryservice.pojo.Student">
+ 		SELECT S_id,S_name,sex,birthday,qq,mobile,dormid from zhb_dormitory.t_b_student where S_name like "%"#{value}"%"
+ 	</select>
+
+    <!--模糊查询评分信息-->
+    <select id="scofindkeyAll" parameterType="String" resultType="com.zhb.dormitoryservice.pojo.Score">
+ 		SELECT score,dormid from zhb_dormitory.t_b_score where dormid like "%"#{value}"%"
+ 	</select>
+
+    <!--模糊查询宿舍信息-->
+    <select id="dormfindkeyAll" parameterType="String" resultType="com.zhb.dormitoryservice.pojo.Dorm">
+ 		SELECT D_id,total,used,dormadmin from zhb_dormitory.t_b_dorm where D_id like "%"#{value}"%"
+ 	</select>
+
+    <!--模糊查询访客信息-->
+    <select id="visfindkeyAll" parameterType="String" resultType="com.zhb.dormitoryservice.pojo.Visitors">
+ 		SELECT visitorname,studentid,starttime,endtime,day from zhb_dormitory.t_b_visitor where studentid like "%"#{value}"%"
+ 	</select>
+
+    <!--模糊查询破损物品信息-->
+    <select id="damfindkeyAll" parameterType="String" resultType="com.zhb.dormitoryservice.pojo.Damagething">
+ 		SELECT damagestation,damagetime,isfixed,dormid from zhb_dormitory.t_b_damage where dormid like "%"#{value}"%"
+ 	</select>
+</mapper>
